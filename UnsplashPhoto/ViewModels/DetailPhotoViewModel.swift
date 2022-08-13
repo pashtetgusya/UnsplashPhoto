@@ -11,7 +11,7 @@ import Alamofire
 
 class DetailPhotoViewModel {
     
-    // MARK: Output
+    // MARK: - Output
     @Published private(set) var error: AFError?
 
     @Published private(set) var name = ""
@@ -22,17 +22,17 @@ class DetailPhotoViewModel {
     @Published private(set) var photoDownloads = 0
     @Published private(set) var photoImageUrl: String = ""
 
-    // MARK: Private Properties
+    // MARK: - Private Properties
     var photo: Photo? {
         didSet {
             configureOutput()
         }
     }
     
-    // MARK: Private Methods
+    // MARK: - Private Methods
     private func configureOutput() {
         name = photo?.user?.name ?? ""
-        username = photo?.user?.username ?? ""
+        username = " @\(photo?.user?.username ?? "")"
         photoCreatedDate = changeDateFormat(string: photo?.created ?? "")
         photoImageUrl = photo?.photoURLs?.regular ?? ""
         photoDownloads = photo?.downloads ?? 0

@@ -10,7 +10,7 @@ import UIKit
 class SearchPhotoView: UIView {
 
     // MARK: - Public Properties
-    let photoCollectionFlowLayout: UICollectionViewFlowLayout = {
+    lazy var photoCollectionFlowLayout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumInteritemSpacing = 5
         layout.minimumLineSpacing = 5
@@ -20,7 +20,7 @@ class SearchPhotoView: UIView {
         return layout
     }()
 
-    let photoCollectionView: UICollectionView = {
+    lazy var photoCollectionView: UICollectionView = {
         let collection = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
         collection.translatesAutoresizingMaskIntoConstraints = false
         collection.clipsToBounds = true

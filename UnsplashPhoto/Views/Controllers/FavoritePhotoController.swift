@@ -11,9 +11,9 @@ import Combine
 class FavoritePhotoController: UIViewController {
 
     // MARK: - Private Properties
-    private let favoritePhotoView = FavoritePhotoView()
-    private var photoViewModel: PhotoViewModel!
     private var subscriptions = Set<AnyCancellable>()
+    private lazy var favoritePhotoView = FavoritePhotoView()
+    private var photoViewModel: PhotoViewModel!
 
     // MARK: - Override Methods
     override func loadView() {

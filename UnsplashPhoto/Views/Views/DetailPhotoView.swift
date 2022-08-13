@@ -11,7 +11,11 @@ import Kingfisher
 class DetailPhotoView: UIView {
     
     // MARK: - Public Properties
-    var shareController: UIActivityViewController!
+    lazy var shareController: UIActivityViewController = {
+        let shareController = UIActivityViewController(activityItems: [photoImageView.image as Any], applicationActivities: nil)
+        
+        return shareController
+    }()
     
     lazy var photoInfoStackView: UIStackView = {
         let stackView = UIStackView()
@@ -46,7 +50,7 @@ class DetailPhotoView: UIView {
         
         return toolbar
     }()
-            
+                
     // MARK: - Override Methods
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -82,18 +86,18 @@ class DetailPhotoView: UIView {
             photoToolbar.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
             photoToolbar.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
             photoToolbar.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
+            photoToolbar.heightAnchor.constraint(equalToConstant: 45),
             
             photoImageView.topAnchor.constraint(equalTo: photoInfoStackView.topAnchor),
             photoImageView.leadingAnchor.constraint(equalTo: photoInfoStackView.leadingAnchor),
             photoImageView.trailingAnchor.constraint(equalTo: photoInfoStackView.trailingAnchor),
             photoImageView.bottomAnchor.constraint(equalTo: photoInfoTableView.topAnchor),
-//            photoImageView.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 0.6),
             
             photoInfoTableView.topAnchor.constraint(equalTo: photoImageView.bottomAnchor),
             photoInfoTableView.leadingAnchor.constraint(equalTo: photoInfoStackView.leadingAnchor),
             photoInfoTableView.trailingAnchor.constraint(equalTo: photoInfoStackView.trailingAnchor),
             photoInfoTableView.bottomAnchor.constraint(equalTo: photoInfoStackView.bottomAnchor),
-//            photoInfoTableView.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 0.4)
+            photoInfoTableView.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 0.30)
         ])
     }
     

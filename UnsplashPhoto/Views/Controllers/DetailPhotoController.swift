@@ -12,7 +12,7 @@ class DetailPhotoController: UIViewController {
     
     // MARK: - Private Properties
     private var subscriptions = Set<AnyCancellable>()
-    private let detailPhotoView = DetailPhotoView()
+    private lazy var detailPhotoView = DetailPhotoView()
     private var detailPhotoViewModel: DetailPhotoViewModel!
     
     private let favoriteButton = UIBarButtonItem(image: UIImage(systemName: "heart.fil"), style: .done, target: self, action: #selector(favoritesButtonPressed))
@@ -93,6 +93,7 @@ class DetailPhotoController: UIViewController {
     
     @objc func showHidePhotoInfoButtonPressed(_ sender: UIBarButtonItem) {
         detailPhotoView.photoInfoTableView.isHidden = detailPhotoView.photoInfoTableView.isHidden ? false : true
+        detailPhotoView.photoInfoTableView.reloadData()
         setupToolbarButtons()
     }
     
@@ -106,31 +107,45 @@ class DetailPhotoController: UIViewController {
 extension DetailPhotoController: UITableViewDataSource, UITableViewDelegate {
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        5
+        4
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        section == 0 ? 0 : 1
+        return 1
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: Constants.photoDetailCellIdentifier, for: indexPath) as? PhotoDetailViewCell {
-            var cellText = ""
-            
             switch indexPath.section {
-            case 1: cellText = "\(detailPhotoViewModel.name) (@\(detailPhotoViewModel.username))"
-            case 2: cellText = "\(detailPhotoViewModel.photoLocationName)"
-            case 3: cellText = "\(detailPhotoViewModel.photoCreatedDate)"
-            case 4: cellText = "\(detailPhotoViewModel.photoDownloads)"
-            default: cellText = ""
-            }
-            
-            if #available(iOS 14.0, *) {
-                var cellConfiguration = cell.defaultContentConfiguration()
-                cellConfiguration.text = cellText
-                cell.contentConfiguration = cellConfiguration
-            } else {
-                cell.textLabel?.text = cellText
+            case 0:
+                var user = ""
+                Publishers.MergeMany(
+                    detailPhotoViewModel.$name,
+                    detailPhotoViewModel.$username
+                )
+                .sink(receiveValue: { value in
+                    user += value
+                })
+//                .assign(to: \.text!, on: cell.textLibel)
+                .store(in: &subscriptions)
+                
+                cell.textLibel.text = user
+            case 1:
+                detailPhotoViewModel.$photoLocationName
+                    .assign(to: \.text!, on: cell.textLibel)
+                    .store(in: &subscriptions)
+            case 2:
+                detailPhotoViewModel.$photoCreatedDate
+                    .assign(to: \.text!, on: cell.textLibel)
+                    .store(in: &subscriptions)
+            case 3:
+                detailPhotoViewModel.$photoDownloads
+                    .compactMap { $0.description
+                        
+                    }.assign(to: \.text!, on: cell.textLibel)
+                    .store(in: &subscriptions)
+            default:
+                cell.textLibel.text = ""
             }
             
             return cell
@@ -141,13 +156,17 @@ extension DetailPhotoController: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
-        case 0: return nil
-        case 1: return "Author"
-        case 2: return "Location"
-        case 3: return "Published on"
-        case 4: return "Downloads"
+//        case 0: return nil
+        case 0: return "Author"
+        case 1: return "Location"
+        case 2: return "Published on"
+        case 3: return "Downloads"
         default: return nil
         }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 
 }

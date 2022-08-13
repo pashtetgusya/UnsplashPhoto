@@ -11,9 +11,10 @@ import Combine
 class SearchPhotoController: UIViewController {
 
     // MARK: - Private Properties
-    private let searchPhotoView = SearchPhotoView()
-    private var photoViewModel: PhotoViewModel!
     private var subscriptions = Set<AnyCancellable>()
+    private lazy var searchPhotoView = SearchPhotoView()
+    private var photoViewModel: PhotoViewModel!
+    
     private var currentPage = 1
 
     // MARK: - Override Methods

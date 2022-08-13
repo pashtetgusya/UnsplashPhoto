@@ -11,7 +11,7 @@ import Kingfisher
 class PhotoCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Private Properties
-    private let imageView: UIImageView = {
+    lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill

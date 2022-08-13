@@ -10,9 +10,10 @@ import UIKit
 class PhotoDetailViewCell: UITableViewCell {
   
     // MARK: - Private Properties
-    private let textLibel: UILabel = {
+    lazy var textLibel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = ""
         
         return label
     }()
@@ -47,8 +48,8 @@ class PhotoDetailViewCell: UITableViewCell {
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             textLibel.topAnchor.constraint(equalTo: contentView.topAnchor),
-            textLibel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            textLibel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            textLibel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            textLibel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
             textLibel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
     }

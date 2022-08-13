@@ -12,7 +12,7 @@ final class TabBarController: UITabBarController {
     // MARK: - Public Properties
     let viewModel = PhotoViewModel()
     
-    // MARK: Private properties
+    // MARK: - Private properties
     private enum TabBarItem {
         case randomPhoto
         case searchPhoto

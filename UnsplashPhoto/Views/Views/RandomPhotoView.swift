@@ -10,7 +10,7 @@ import UIKit
 class RandomPhotoView: UIView {
 
     // MARK: - Public Properties
-    let photoCollectionFlowLayout: UICollectionViewFlowLayout = {
+    lazy var photoCollectionFlowLayout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumInteritemSpacing = 2
         layout.minimumLineSpacing = 2
@@ -20,7 +20,7 @@ class RandomPhotoView: UIView {
         return layout
     }()
 
-    let photoCollectionView: UICollectionView = {
+    lazy var photoCollectionView: UICollectionView = {
         let collection = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
         collection.translatesAutoresizingMaskIntoConstraints = false
         collection.clipsToBounds = true
@@ -32,7 +32,7 @@ class RandomPhotoView: UIView {
         return collection
     }()
     
-    let photoCollectionRefreshControl: UIRefreshControl = {
+    lazy var photoCollectionRefreshControl: UIRefreshControl = {
         let refresh = UIRefreshControl()
         refresh.attributedTitle = NSAttributedString(string: "Refreshing...")
         

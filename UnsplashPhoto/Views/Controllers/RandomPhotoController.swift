@@ -11,9 +11,9 @@ import Combine
 class RandomPhotoController: UIViewController {
     
     // MARK: - Private Properties
-    private let randomPhotoView = RandomPhotoView()
-    private var photoViewModel: PhotoViewModel!
     private var subscriptions = Set<AnyCancellable>()
+    private lazy var randomPhotoView = RandomPhotoView()
+    private var photoViewModel: PhotoViewModel!
 
     // MARK: - Override Methods
     override func loadView() {
