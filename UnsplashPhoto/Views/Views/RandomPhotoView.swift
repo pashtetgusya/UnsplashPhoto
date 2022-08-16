@@ -43,9 +43,7 @@ class RandomPhotoView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.addSubview(photoCollectionView)
-
-        setupUI()
+        setupView()
         setupConstraints()
     }
     
@@ -55,11 +53,13 @@ class RandomPhotoView: UIView {
     }
         
     // MARK: - Private Methods
-    private func setupUI() {
+    private func setupView() {
+        self.backgroundColor = .systemBackground
+        
+        self.addSubview(photoCollectionView)
+        
         photoCollectionView.setCollectionViewLayout(photoCollectionFlowLayout, animated: true)
         photoCollectionView.refreshControl = photoCollectionRefreshControl
-        
-        self.backgroundColor = .systemBackground
     }
     
     private func setupConstraints() {

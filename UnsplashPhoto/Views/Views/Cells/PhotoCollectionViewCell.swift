@@ -9,8 +9,8 @@ import UIKit
 import Kingfisher
 
 class PhotoCollectionViewCell: UICollectionViewCell {
-    
-    // MARK: - Private Properties
+        
+    // MARK: - Public Properties
     lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -23,13 +23,8 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        contentView.layer.cornerRadius = 15
-        contentView.clipsToBounds = true
-        contentView.addSubview(imageView)
-        
-        imageView.image = nil
-        
-        setupUI()
+        setupView()
+        setupConstraints()
     }
             
     override func prepareForReuse() {
@@ -44,7 +39,15 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         imageView.frame = contentView.bounds
     }
     
-    private func setupUI() {
+    // MARK: - Private Methods
+    private func setupView() {
+        contentView.layer.cornerRadius = 15
+        contentView.clipsToBounds = true
+        
+        contentView.addSubview(imageView)
+    }
+    
+    private func setupConstraints() {
         NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
             imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
@@ -61,8 +64,9 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     // MARK: - Public Methods
     func setImage(from photoData: Photo) {
         if let photoURLString = photoData.photoURLs?.regular, let photoURL = URL(string: photoURLString) {
+            imageView.kf.indicatorType = .activity
             imageView.kf.setImage(with: photoURL)
         }
-        
     }
+    
 }

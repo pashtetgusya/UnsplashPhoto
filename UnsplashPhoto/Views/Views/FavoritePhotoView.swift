@@ -35,10 +35,8 @@ class FavoritePhotoView: UIView {
     // MARK: - Override Methods
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
-        self.addSubview(photoCollectionView)
 
-        setupUI()
+        setupView()
         setupConstraints()
     }
     
@@ -48,10 +46,12 @@ class FavoritePhotoView: UIView {
     }
         
     // MARK: - Private Methods
-    private func setupUI() {
-        photoCollectionView.setCollectionViewLayout(photoCollectionFlowLayout, animated: true)
-        
+    private func setupView() {
         self.backgroundColor = .systemBackground
+        
+        self.addSubview(photoCollectionView)
+        
+        photoCollectionView.setCollectionViewLayout(photoCollectionFlowLayout, animated: true)
     }
     
     private func setupConstraints() {

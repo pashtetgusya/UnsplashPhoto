@@ -8,8 +8,8 @@
 import UIKit
 
 class PhotoDetailViewCell: UITableViewCell {
-  
-    // MARK: - Private Properties
+    
+    // MARK: - Public Properties
     lazy var textLibel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -22,9 +22,7 @@ class PhotoDetailViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        contentView.clipsToBounds = true
-        contentView.addSubview(textLibel)
-        
+        setupView()
         setupConstraints()
     }
     
@@ -45,6 +43,12 @@ class PhotoDetailViewCell: UITableViewCell {
     }
     
     // MARK: - Private Methods
+    private func setupView() {
+        contentView.clipsToBounds = true
+        
+        contentView.addSubview(textLibel)
+    }
+    
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             textLibel.topAnchor.constraint(equalTo: contentView.topAnchor),

@@ -55,13 +55,7 @@ class DetailPhotoView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.addSubview(photoInfoStackView)
-        photoInfoStackView.addArrangedSubview(photoImageView)
-        photoInfoStackView.addArrangedSubview(photoInfoTableView)
-        
-        self.addSubview(photoToolbar)
-        
-        setupUI()
+        setupView()
         setupConstraints()
     }
     
@@ -71,8 +65,13 @@ class DetailPhotoView: UIView {
     }
     
     // MARK: - Private Methods
-    private func setupUI() {
+    private func setupView() {
         self.backgroundColor = .systemBackground
+        
+        self.addSubview(photoToolbar)
+        self.addSubview(photoInfoStackView)
+        photoInfoStackView.addArrangedSubview(photoImageView)
+        photoInfoStackView.addArrangedSubview(photoInfoTableView)
     }
     
     private func setupConstraints() {

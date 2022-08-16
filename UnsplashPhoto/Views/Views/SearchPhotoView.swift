@@ -32,7 +32,7 @@ class SearchPhotoView: UIView {
         return collection
     }()
         
-    let photoSearchController: UISearchController = {
+    lazy var photoSearchController: UISearchController = {
         let search = UISearchController()
         search.searchBar.placeholder = "Search photo..."
         
@@ -42,10 +42,8 @@ class SearchPhotoView: UIView {
     // MARK: - Override Methods
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
-        self.addSubview(photoCollectionView)
 
-        setupUI()
+        setupView()
         setupConstraints()
     }
     
@@ -55,10 +53,12 @@ class SearchPhotoView: UIView {
     }
         
     // MARK: - Private Methods
-    private func setupUI() {
-        photoCollectionView.setCollectionViewLayout(photoCollectionFlowLayout, animated: true)
-        
+    private func setupView() {
         self.backgroundColor = .systemBackground
+        
+        self.addSubview(photoCollectionView)
+        
+        photoCollectionView.setCollectionViewLayout(photoCollectionFlowLayout, animated: true)
     }
     
     private func setupConstraints() {
