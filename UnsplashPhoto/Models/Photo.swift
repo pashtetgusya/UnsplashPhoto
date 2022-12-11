@@ -1,14 +1,8 @@
-//
-//  Photo.swift
-//  UnsplashPhoto
-//
-//  Created by Pavel Yarovoi on 01.08.2022.
-//
-
 import Foundation
 
 // MARK: - Photo
 struct Photo: Codable {
+    
     let id: String?
     let created: String?
     let description: String?

@@ -1,19 +1,13 @@
-//
-//  TabBarController.swift
-//  UnsplashPhoto
-//
-//  Created by Pavel Yarovoi on 01.08.2022.
-//
-
 import UIKit
 
 final class TabBarController: UITabBarController {
     
-    // MARK: - Public Properties
+    // MARK: - Public properties
     let viewModel = PhotoViewModel()
     
     // MARK: - Private properties
     private enum TabBarItem {
+        
         case randomPhoto
         case searchPhoto
         case favoritePhoto
@@ -36,12 +30,12 @@ final class TabBarController: UITabBarController {
             case .searchPhoto:
                 return "magnifyingglass"
             case .favoritePhoto:
-                return "star"
+                return "heart"
             }
         }
     }
     
-    // MARK: - Override Methods
+    // MARK: - Override methods
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -50,21 +44,36 @@ final class TabBarController: UITabBarController {
         setupTabBar()
     }
     
-    // MARK: - Private Methods
+    // MARK: - Private methods
     private func setupTabBar() {
         let dataSource: [TabBarItem] = [.randomPhoto, .searchPhoto, .favoritePhoto]
         
         self.viewControllers = dataSource.map { item in
             switch item {
             case .randomPhoto:
-                let photoController = RandomPhotoController()
-                return wrappedInNavigationController(with: photoController, title: item.title)
+                let randomPhotoController = RandomPhotoController()
+                let randomPhotoNavController = wrappedInNavigationController(
+                    with: randomPhotoController,
+                    title: item.title
+                )
+                
+                return randomPhotoNavController
             case .searchPhoto:
-                let photoController = SearchPhotoController()
-                return wrappedInNavigationController(with: photoController, title: item.title)
+                let searchPhotoController = SearchPhotoController()
+                let searchPhotoNavController = wrappedInNavigationController(
+                    with: searchPhotoController,
+                    title: item.title
+                )
+                
+                return searchPhotoNavController
             case .favoritePhoto:
-                let photoController = FavoritePhotoController()
-                return wrappedInNavigationController(with: photoController, title: item.title)
+                let favoritePhotoController = FavoritePhotoController()
+                let favoritePhotoNavController = wrappedInNavigationController(
+                    with: favoritePhotoController,
+                    title: item.title
+                )
+                
+                return favoritePhotoNavController
             }
         }
         
@@ -75,9 +84,12 @@ final class TabBarController: UITabBarController {
         
     }
     
-    private func wrappedInNavigationController(with controller: UIViewController, title: String) -> UINavigationController {
+    private func wrappedInNavigationController(
+        with controller: UIViewController,
+        title: String
+    ) -> UINavigationController {
         controller.navigationItem.title = "\(title) photo"
+        
         return UINavigationController(rootViewController: controller)
     }
-
 }

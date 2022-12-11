@@ -1,10 +1,3 @@
-//
-//  PhotoDetailViewCell.swift
-//  UnsplashPhoto
-//
-//  Created by Pavel Yarovoi on 08.08.2022.
-//
-
 import UIKit
 
 class PhotoDetailViewCell: UITableViewCell {
@@ -57,5 +50,4 @@ class PhotoDetailViewCell: UITableViewCell {
             textLibel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
     }
-
 }

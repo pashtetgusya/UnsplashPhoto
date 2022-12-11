@@ -68,6 +68,7 @@
 		E59B3E2128941E83007D2410 /* DetailPhotoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPhotoController.swift; sourceTree = "<group>"; };
 		E59B3E2728941EB2007D2410 /* DetailPhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPhotoView.swift; sourceTree = "<group>"; };
 		E5BC688528967333001677F7 /* PhotosResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosResult.swift; sourceTree = "<group>"; };
+		E5D604C12911729500CE6B21 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,15 +100,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		E57170F62897AF7800E42531 /* Cells */ = {
-			isa = PBXGroup;
-			children = (
-				E57171042897E76700E42531 /* PhotoCollectionViewCell.swift */,
-				E556DDCC28A1426F0064265A /* PhotoDetailViewCell.swift */,
-			);
-			path = Cells;
-			sourceTree = "<group>";
-		};
 		E57171032897D6BF00E42531 /* Application */ = {
 			isa = PBXGroup;
 			children = (
@@ -115,6 +107,72 @@
 				E59B3E012893FEDC007D2410 /* SceneDelegate.swift */,
 			);
 			path = Application;
+			sourceTree = "<group>";
+		};
+		E579924A2915506200DF5B76 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E579924B2915507200DF5B76 /* TabBar */,
+				E57992502915513700DF5B76 /* ReusableCells */,
+				E579924C2915507A00DF5B76 /* RandomPhoto */,
+				E579924D2915508700DF5B76 /* SearchPhoto */,
+				E579924E2915509100DF5B76 /* FavoritePhoto */,
+				E579924F2915511100DF5B76 /* DetailPhoto */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		E579924B2915507200DF5B76 /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				E57170F428979BE500E42531 /* TabBarController.swift */,
+			);
+			path = TabBar;
+			sourceTree = "<group>";
+		};
+		E579924C2915507A00DF5B76 /* RandomPhoto */ = {
+			isa = PBXGroup;
+			children = (
+				E556DDBC289C5DA70064265A /* RandomPhotoView.swift */,
+				E556DDAD289C54CA0064265A /* RandomPhotoController.swift */,
+			);
+			path = RandomPhoto;
+			sourceTree = "<group>";
+		};
+		E579924D2915508700DF5B76 /* SearchPhoto */ = {
+			isa = PBXGroup;
+			children = (
+				E556DDC8289F82B90064265A /* SearchPhotoView.swift */,
+				E556DDAF289C54D80064265A /* SearchPhotoController.swift */,
+			);
+			path = SearchPhoto;
+			sourceTree = "<group>";
+		};
+		E579924E2915509100DF5B76 /* FavoritePhoto */ = {
+			isa = PBXGroup;
+			children = (
+				E556DDCA289F82CD0064265A /* FavoritePhotoView.swift */,
+				E556DDB2289C55040064265A /* FavoritePhotoController.swift */,
+			);
+			path = FavoritePhoto;
+			sourceTree = "<group>";
+		};
+		E579924F2915511100DF5B76 /* DetailPhoto */ = {
+			isa = PBXGroup;
+			children = (
+				E59B3E2728941EB2007D2410 /* DetailPhotoView.swift */,
+				E59B3E2128941E83007D2410 /* DetailPhotoController.swift */,
+			);
+			path = DetailPhoto;
+			sourceTree = "<group>";
+		};
+		E57992502915513700DF5B76 /* ReusableCells */ = {
+			isa = PBXGroup;
+			children = (
+				E57171042897E76700E42531 /* PhotoCollectionViewCell.swift */,
+				E556DDCC28A1426F0064265A /* PhotoDetailViewCell.swift */,
+			);
+			path = ReusableCells;
 			sourceTree = "<group>";
 		};
 		E59B3DF32893FEDC007D2410 = {
@@ -142,7 +200,7 @@
 				E59B3E1728941C1A007D2410 /* Resources */,
 				E59B3E1828941C43007D2410 /* Services */,
 				E59B3E1328941BB1007D2410 /* Models */,
-				E59B3E1428941BB9007D2410 /* Views */,
+				E579924A2915506200DF5B76 /* Views */,
 				E59B3E1528941BC8007D2410 /* ViewModels */,
 				E59B3E0D2893FEE0007D2410 /* Info.plist */,
 			);
@@ -163,15 +221,6 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		E59B3E1428941BB9007D2410 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				E59B3E1E28941D75007D2410 /* Controllers */,
-				E59B3E1D28941D6F007D2410 /* Views */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
 		E59B3E1528941BC8007D2410 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
@@ -185,6 +234,7 @@
 			isa = PBXGroup;
 			children = (
 				E59B3E082893FEE0007D2410 /* Assets.xcassets */,
+				E5D604C12911729500CE6B21 /* Config.xcconfig */,
 				E571710A2898265100E42531 /* Constants.swift */,
 			);
 			path = Resources;
@@ -197,30 +247,6 @@
 				E556DDC2289E2CB60064265A /* StorageManager.swift */,
 			);
 			path = Services;
-			sourceTree = "<group>";
-		};
-		E59B3E1D28941D6F007D2410 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				E57170F62897AF7800E42531 /* Cells */,
-				E556DDBC289C5DA70064265A /* RandomPhotoView.swift */,
-				E556DDC8289F82B90064265A /* SearchPhotoView.swift */,
-				E556DDCA289F82CD0064265A /* FavoritePhotoView.swift */,
-				E59B3E2728941EB2007D2410 /* DetailPhotoView.swift */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		E59B3E1E28941D75007D2410 /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				E57170F428979BE500E42531 /* TabBarController.swift */,
-				E556DDAD289C54CA0064265A /* RandomPhotoController.swift */,
-				E556DDAF289C54D80064265A /* SearchPhotoController.swift */,
-				E556DDB2289C55040064265A /* FavoritePhotoController.swift */,
-				E59B3E2128941E83007D2410 /* DetailPhotoController.swift */,
-			);
-			path = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -254,7 +280,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1340;
-				LastUpgradeCheck = 1340;
+				LastUpgradeCheck = 1410;
 				TargetAttributes = {
 					E59B3DFB2893FEDC007D2410 = {
 						CreatedOnToolsVersion = 13.4.1;
@@ -388,6 +414,7 @@
 /* Begin XCBuildConfiguration section */
 		E59B3E0E2893FEE0007D2410 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E5D604C12911729500CE6B21 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -436,7 +463,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -448,6 +475,7 @@
 		};
 		E59B3E0F2893FEE0007D2410 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E5D604C12911729500CE6B21 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -490,7 +518,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -513,8 +541,9 @@
 				INFOPLIST_FILE = UnsplashPhoto/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleLightContent;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -522,9 +551,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "pavel-yarovoi.UnsplashPhoto";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -541,8 +573,9 @@
 				INFOPLIST_FILE = UnsplashPhoto/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleLightContent;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -550,9 +583,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "pavel-yarovoi.UnsplashPhoto";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

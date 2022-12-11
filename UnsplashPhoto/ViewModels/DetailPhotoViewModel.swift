@@ -1,19 +1,20 @@
-//
-//  DetailPhotoViewModel.swift
-//  UnsplashPhoto
-//
-//  Created by Pavel Yarovoi on 06.08.2022.
-//
-
 import Foundation
 import Combine
 import Alamofire
 
-class DetailPhotoViewModel {
+// MARK: - Detail photo view model protocol
+protocol DetailPhotoViewModelProtocol: AnyObject {
+    
+    func fetchPhotoDetail(photoID: String)
+    func getViewModelPhoto() -> Photo?
+}
+
+// MARK: - Detail photo view model
+final class DetailPhotoViewModel {
     
     // MARK: - Output
     @Published private(set) var error: AFError?
-
+    
     @Published private(set) var name = ""
     @Published private(set) var username = ""
     
@@ -21,15 +22,18 @@ class DetailPhotoViewModel {
     @Published private(set) var photoLocationName = ""
     @Published private(set) var photoDownloads = 0
     @Published private(set) var photoImageUrl: String = ""
-
-    // MARK: - Private Properties
-    var photo: Photo? {
+    
+    // MARK: - Private properties
+    private var photo: Photo? {
         didSet {
             configureOutput()
         }
     }
+}
+
+// MARK: - Private methods
+extension DetailPhotoViewModel {
     
-    // MARK: - Private Methods
     private func configureOutput() {
         name = photo?.user?.name ?? ""
         username = " @\(photo?.user?.username ?? "")"
@@ -38,7 +42,7 @@ class DetailPhotoViewModel {
         photoDownloads = photo?.downloads ?? 0
         photoLocationName = photo?.location?.title ?? ""
     }
-
+    
     private func changeDateFormat(string: String) -> String {
         guard !string.isEmpty else {
             return ""
@@ -49,19 +53,30 @@ class DetailPhotoViewModel {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "en_US_POSIX")
         formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-        if let date = formatter.date(from: string) {
-            formatter.dateFormat = "MMM d, yyyy"
-            formattedDate = formatter.string(from: date)
+        
+        guard let date = formatter.date(from: string) else {
+            return ""
         }
+            
+        formatter.dateFormat = "MMM d, yyyy"
+        formattedDate = formatter.string(from: date)
         
         return formattedDate
     }
+}
+
+// MARK: – DetailPhotoViewModelProtocol
+extension DetailPhotoViewModel: DetailPhotoViewModelProtocol {
     
-    // MARK: - Fetch data
     func fetchPhotoDetail(photoID: String) {
         let path = Constants.photoDetailsPath + photoID
         
-        NetworkManager.shared.fetchData(path: path, type: Photo.self) { responce in
+        NetworkManager.shared.fetchData(
+            path: path,
+            type: Photo.self
+        ) { [weak self] responce in
+            guard let self = self else { return }
+            
             switch responce {
             case .success(let data):
                 self.photo = data
@@ -71,4 +86,11 @@ class DetailPhotoViewModel {
         }
     }
     
+    func getViewModelPhoto() -> Photo? {
+        guard let photo = photo else {
+            return nil
+        }
+        
+        return photo
+    }
 }

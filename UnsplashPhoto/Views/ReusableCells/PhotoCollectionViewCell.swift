@@ -1,17 +1,17 @@
-//
-//  PhotoCollectionViewCell.swift
-//  UnsplashPhoto
-//
-//  Created by Pavel Yarovoi on 01.08.2022.
-//
-
 import UIKit
 import Kingfisher
 
+// MARK: Photo collection view cell protocol
+protocol PhotoCollectionViewCellProtocol: AnyObject {
+    
+    func setup(for photo: Photo)
+}
+
+// MARK: Photo collection view cell
 class PhotoCollectionViewCell: UICollectionViewCell {
-        
-    // MARK: - Public Properties
-    lazy var imageView: UIImageView = {
+    
+    // MARK: - Public properties
+    private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
@@ -19,14 +19,14 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         return imageView
     }()
     
-    // MARK: - Override Methods
+    // MARK: - Override methods
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         setupView()
         setupConstraints()
     }
-            
+    
     override func prepareForReuse() {
         super.prepareForReuse()
         
@@ -39,7 +39,15 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         imageView.frame = contentView.bounds
     }
     
-    // MARK: - Private Methods
+    // MARK: - Required methods
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+// MARK: - Private methods
+extension PhotoCollectionViewCell {
+    
     private func setupView() {
         contentView.layer.cornerRadius = 15
         contentView.clipsToBounds = true
@@ -55,18 +63,18 @@ class PhotoCollectionViewCell: UICollectionViewCell {
             imageView.rightAnchor.constraint(equalTo: contentView.rightAnchor)
         ])
     }
+}
+
+// MARK: – PhotoCollectionViewCellProtocol
+extension PhotoCollectionViewCell: PhotoCollectionViewCellProtocol {
     
-    // MARK: - Required Methods
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    func setup(for photo: Photo) {
+        guard let photoURLString = photo.photoURLs?.regular,
+              let photoURL = URL(string: photoURLString) else { return }
+        
+        imageView.kf.indicatorType = .activity
+        imageView.kf.setImage(with: photoURL, options: [
+            .cacheOriginalImage
+        ])
     }
-    
-    // MARK: - Public Methods
-    func setImage(from photoData: Photo) {
-        if let photoURLString = photoData.photoURLs?.regular, let photoURL = URL(string: photoURLString) {
-            imageView.kf.indicatorType = .activity
-            imageView.kf.setImage(with: photoURL)
-        }
-    }
-    
 }

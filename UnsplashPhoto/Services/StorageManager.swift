@@ -1,54 +1,50 @@
-//
-//  StorageManager.swift
-//  UnsplashPhoto
-//
-//  Created by Pavel Yarovoi on 06.08.2022.
-//
-
 import Foundation
 
 // MARK: - Favorite photo storage protocol
-protocol FavoritePhotoStorageProtocol {
+protocol FavoritePhotoStorageProtocol: AnyObject {
 
-    func loadFavoritePhotos() -> [Photo]
+    func loadFavoritePhotos() -> [Photo]?
     func saveFavoritePhotos()
     func addPhotoToFavorites(added photo: Photo)
     func removePhotoFromFavorites(removed photo: Photo)
     func isFavorite(photoID: String) -> Bool
-
 }
 
 // MARK: - Favorite photo storage
-class FavirotePhotoStorageManager: FavoritePhotoStorageProtocol {
+final class FavirotePhotoStorageManager {
     
     // MARK: - Public Properties
     static let shared = FavirotePhotoStorageManager()
-    let storageKey: String = Constants.userDefaultsKey
     
     // MARK: - Private Properties
+    private let storageKey: String = Constants.userDefaultsKey
     private var storage = UserDefaults.standard
     private var favoritePhots = [Photo]() {
         didSet {
             saveFavoritePhotos()
         }
     }
+}
         
-    // MARK: - Public Methods
-    func loadFavoritePhotos() -> [Photo] {
-        if let savedFavoritePhotos = storage.object(forKey: Constants.userDefaultsKey) as? Data {
-            let decoder = JSONDecoder()
-            if let loadedFavoretiPhotos = try? decoder.decode([Photo].self, from: savedFavoritePhotos) {
-                favoritePhots = loadedFavoretiPhotos
-            }
+// MARK: – FavoritePhotoStorageProtocol
+extension FavirotePhotoStorageManager: FavoritePhotoStorageProtocol {
+    
+    func loadFavoritePhotos() -> [Photo]? {
+        guard let savedFavoritePhotos = storage.object(forKey: storageKey) as? Data,
+              let loadedFavoretiPhotos = try? JSONDecoder().decode([Photo].self, from: savedFavoritePhotos) else {
+            return nil
         }
+        
+        favoritePhots = loadedFavoretiPhotos
+        
         return favoritePhots
     }
 
     func saveFavoritePhotos() {
         let encoder = JSONEncoder()
-        if let encodedObjects = try? encoder.encode(favoritePhots) {
-            storage.set(encodedObjects, forKey: Constants.userDefaultsKey)
-        }
+        guard let encodedObjects = try? encoder.encode(self.favoritePhots) else { return }
+        
+        storage.set(encodedObjects, forKey: storageKey)
     }
     
     func addPhotoToFavorites(added photo: Photo) {
@@ -58,16 +54,17 @@ class FavirotePhotoStorageManager: FavoritePhotoStorageProtocol {
     }
     
     func removePhotoFromFavorites(removed photo: Photo) {
-        if let index = favoritePhots.firstIndex(of: photo) {
-            favoritePhots.remove(at: index)
-        }
+        guard let index = favoritePhots.firstIndex(of: photo) else { return }
+        
+        favoritePhots.remove(at: index)
     }
     
     func isFavorite(photoID: String) -> Bool {
-        guard !photoID.isEmpty else {
+        guard !photoID.isEmpty,
+              (favoritePhots.filter { $0.id == photoID }.first) != nil else {
             return false
         }
-        return (favoritePhots.filter { $0.id == photoID }.first) != nil
+        
+        return true
     }
-    
 }

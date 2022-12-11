@@ -1,14 +1,8 @@
-//
-//  PhotoURLs.swift
-//  UnsplashPhoto
-//
-//  Created by Pavel Yarovoi on 01.08.2022.
-//
-
 import Foundation
 
 // MARK: - PhotoURL's
 struct PhotoURLs: Codable {
+    
     let raw: String?
     let full: String?
     let regular: String?

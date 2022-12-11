@@ -1,27 +1,25 @@
-//
-//  NetworkManager.swift
-//  UnsplashPhoto
-//
-//  Created by Pavel Yarovoi on 29.07.2022.
-//
-
 import Foundation
 import Alamofire
 
-class NetworkManager {
+// MARK: – Network manager
+final class NetworkManager {
     
-    // MARK: - Public Properties
+    // MARK: - Public properties
     static let shared = NetworkManager()
-
-    // MARK: - Initial Methods
-    private init() {}
     
-    // MARK: - Public Methods
-    func fetchData<T: Codable>(path: String, query: String? = nil, page: Int? = nil, type: T.Type, completionHandler: @escaping (Result<T, AFError>) -> Void) {
-        guard let token = ProcessInfo.processInfo.environment["UNSPLASH_CLIENT_ID"] else {
-            return
-        }
-
+    // MARK: - Initial methods
+    private init() { }
+    
+    // MARK: - Public methods
+    func fetchData<T: Codable>(
+        path: String,
+        query: String? = nil,
+        page: Int? = nil,
+        type: T.Type,
+        completionHandler: @escaping (Result<T, AFError>) -> Void
+    ) {
+        guard let token = Bundle.main.object(forInfoDictionaryKey: "UNSPLASH_CLIENT_ID") as? String else { return }
+        
         let url = createURL(path: path)
         let queryParameters = prepareParameters(token: token, query: query, page: page)
         
@@ -31,8 +29,11 @@ class NetworkManager {
                 completionHandler(responce.result)
             }
     }
+}
+
+// MARK: - Private methods
+extension NetworkManager {
     
-    // MARK: - Private Methods
     private func createURL(path: String) -> URL {
         var components = URLComponents()
         components.scheme = Constants.scheme
@@ -42,19 +43,24 @@ class NetworkManager {
         return components.url!
     }
     
-    private func prepareParameters(token: String, query: String? = nil, page: Int? = nil) -> [String: String] {
+    private func prepareParameters(
+        token: String,
+        query: String? = nil,
+        page: Int? = nil
+    ) -> [String: String] {
         var parameters = [String: String]()
         
         parameters["client_id"] = token
         parameters["count"] = String(Constants.photosOnPage)
+        
         if let query = query {
             parameters["query"] = query
         }
+        
         if let page = page {
             parameters["page"] = page.description
         }
         
         return parameters
     }
-    
 }
